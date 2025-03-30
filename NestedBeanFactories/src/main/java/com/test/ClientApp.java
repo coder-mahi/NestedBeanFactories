@@ -6,13 +6,15 @@ import com.beans.BankLoanApprover;
 
 public class ClientApp {
     public static void main(String[] args) {
-        //parent IOC container
-        ApplicationContext LoanBeansIOC = new ClassPathXmlApplicationContext("loan-beans.xml");
-        //child IOC container
-        ApplicationContext ApprovalIOC = new ClassPathXmlApplicationContext("approval-beans.xml");
+        // Parent IOC container
+        ApplicationContext parent = new ClassPathXmlApplicationContext("loan-beans.xml");
+        
+        // Child IOC container with parent reference
+        ApplicationContext child = new ClassPathXmlApplicationContext(
+            new String[] {"approval-beans.xml"}, parent);
 
-        //getbean
-        BankLoanApprover approver = ApprovalIOC.getBean("bla",BankLoanApprover.class);
-        System.out.println(approver.approveLoan());
+        // Get bean from child container
+        BankLoanApprover approver = child.getBean("bla", BankLoanApprover.class);
+        System.out.println(approver.approveLoan()); // Will output "Loan is approved"
     }
 }

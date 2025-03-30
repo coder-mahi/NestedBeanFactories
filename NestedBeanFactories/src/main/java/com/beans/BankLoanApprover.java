@@ -12,7 +12,7 @@ public class BankLoanApprover {
     //toString()
     @Override
     public String toString(){
-        return "BankLoanApprover [details =]"+details+"]";
+        return "BankLoanApprover [details ="+details+"]";
     }
 
     public String approveLoan(){
